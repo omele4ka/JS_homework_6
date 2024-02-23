@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section class="featured-items"></section>
+    <script>
+        function renderData() {
+            fetch('data.json')
+                .then (response => response.json())
+                .then (data => {
+                    const featuredItemsContainer = document.querySelector('.featured-items');
+
+                    data.forEach(function(item) {
+                        const featuredItem = document.createElement('div');
+                        featuredItem.classList.add('featured-item');
+
+                        const img = document.createElement('img');
+                        img.src = item.image;
+                        featuredItem.appendChild(img);
+
+                        const title = document.createElement('h4');
+                        title.textContent = item.title;
+                        featuredItem.appendChild(title);
+
+                        const description = document.createElement('p');
+                        description.textContent = item.description;
+                        featuredItem.appendChild(description);
+
+                        const price = document.createElement('p');
+                        price.textContent = item.price;
+                        featuredItem.appendChild(price);
+
+                        featuredItemsContainer.appendChild(featuredItem);
+                    });
+                })
+
+            .catch(error => console.error('Ошибка при загрузке данных:', error));
+        }
+
+        renderData();
+    </script>
+</body>
+</html>
